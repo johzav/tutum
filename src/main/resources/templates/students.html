@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home page</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    
+    <body>
+  		<div class="container">
+        
+	        <h3 th:text="Estudiantes"></h3>
+        
+   			<a th:href="@{/logout}" class="btn btn-danger position-relative">
+				<i class="fa fa-sign-out" aria-hidden="true"></i>
+				&nbsp;Logout
+			</a>        	        
+			<hr/>
+			
+	      	<div class="table-responsive" th:if="${ not#lists.isEmpty(students)}">
+	          <table class="table  table-striped">
+	            <thead>            
+		            <tr>
+		              <th scope="col">Id</th>
+		              <th scope="col">Nombre</th>
+		              <th scope="col">Apellido</th>
+		              <th scope="col">Apellido M.</th>
+		              <th scope="col">Acción</th>
+		            </tr>
+	            </thead>
+	            
+	            <tbody>
+		            <tr th:each="student : ${students}">
+		              <td scope="row" th:text="${student.idStudent}"></td>
+		              <td th:text="${student.name}"></td>
+		              <td th:text="${student.lastName}"></td>
+		              <td th:text="${student.motherName}"></td>
+		              <td> 
+		              	<a th:href="@{'student/'+${student.idStudent}+'/grades'}" class="btn btn-success"> 
+		              		<i class="fa fa-arrow-circle-o-left"></i>
+		              		&nbsp;Calificaciones
+		              	</a>
+		              </td>             
+		            </tr>
+	            </tbody>            
+	          </table>
+	          
+	        </div>
+       </div>
+    </body>
+</html>

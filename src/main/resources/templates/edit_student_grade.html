@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add Grades</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    
+    <body>
+  		<div class="container">
+    		<h3>Editar calificación</h3>    		
+    		<hr/>
+    		<div style="display: inline-flex;">
+    		
+				<a th:href="@{/}" class="btn btn-info">
+					<i class="fa fa-home" aria-hidden="true"></i>
+					&nbsp;Home
+				</a>  
+				&nbsp;&nbsp;  		
+	           	<form method="post" action="#" th:action="@{'/delete_student_grade/'+${idGrade}
+	           	 	+ '/idStudent/'+ ${idStudent}}">		              	
+	            	<button type="submit" class="btn btn-danger">
+	             		<i class="fa fa-trash-o" aria-hidden="true"></i>
+	            		&nbsp;Eliminar
+	            	</button>	              	
+	           	</form>	    		
+    		</div>
+    		<br/><br/>
+    		
+	        <form action="#" th:action="@{/editStudentGrade}" th:object="${editStudentGradeForm}" method="post">
+	            <table class="table  table-striped">
+	                <tr>
+	                    <td>Materia:</td>
+	                    <td>
+   		                    <!-- idStudent -->
+	                    	<input type="number" th:field="*{idStudent}" th:value="${idStudent}" style="display:none" />                    	
+	                    	<!-- idGrade -->
+	                    	<input type="number" th:field="*{idGrade}" th:value="${idGrade}" style="display:none" />
+	                    	
+			              	<select th:field="*{idMatter}">		              
+				              	<option th:each="matter : ${mattersList}" 
+				              		th:value="${matter.idMat}" th:text="${matter.name}"
+				              		th:selected="${matter.idMat==idMatter}">
+						    	</option>
+						    </select>	                    
+						</td>
+	                    <td th:if="${#fields.hasErrors('idMatter')}" th:errors="*{idMatter}">Error en materia</td>
+	                </tr>
+	                <tr>
+	                    <td>Calificación:</td>
+	                    <td><input type="number" step="0.01" th:value="${grade}" th:field="*{grade}" /></td>
+	                    <td th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}">Error en la calificación</td>
+	                </tr>
+
+	                <tr>
+	                    <td>
+		                    <button type="submit" class="btn btn-primary">
+		                    	Editar Calificación
+	                    	</button>
+                    	
+                    	</td>
+                    	<td></td>
+	                </tr>
+	            </table>
+	        </form>
+	        
+        </div>
+    </body>
+</html>

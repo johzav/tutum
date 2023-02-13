@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add Grades</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    
+    <body>
+  		<div class="container">
+    		<h3>Agregar calificacion</h3>
+    		<hr/>
+			<a th:href="@{/}" class="btn btn-info">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				&nbsp;Home
+			</a>
+			    		
+	        <form action="#" th:action="@{/addStudentGrade}" th:object="${addStudentGradeForm}" method="post">
+	            <table class="table  table-striped">
+	                <tr>
+	                    <td>Materia:</td>	                    
+	                    <td>
+		                    <!-- idStudent -->
+	                    	<input type="number" th:field="*{idStudent}" th:value="${idStudent}" style="display:none" />
+	                    	
+			              	<select th:field="*{idMatter}">		              
+				              	<option th:each="matter : ${mattersList}" 
+				              		th:value="${matter.idMat}" th:text="${matter.name}">
+						    	</option>
+						    </select>	                    
+						</td>
+	                    <td th:if="${#fields.hasErrors('idMatter')}" th:errors="*{idMatter}">Error en materia</td>
+	                </tr>
+	                
+	                
+	                <tr>
+	                    <td>Calificación:</td>
+	                    <td><input type="number" step="0.01" th:field="*{grade}" /></td>
+	                    <td th:if="${#fields.hasErrors('grade')}" th:errors="*{grade}">Error en la calificación</td>
+	                </tr>
+	                
+	                
+	                <tr>
+	                    <td>
+		                    <button type="submit" class="btn btn-primary">
+		                    	Agregar calificación
+	                    	</button>
+                    	</td>
+                    	<td></td>
+	                </tr>
+	            </table>
+	        </form>
+	        
+        </div>
+    </body>
+</html>

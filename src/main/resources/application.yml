@@ -1,0 +1,9 @@
+spring:
+  data:
+    jpa.repositories.enabled: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://tutumdb.c5n0c9cxxuh1.us-west-2.rds.amazonaws.com:5432/escuela
+#    url: jdbc:postgresql://localhost:5432/escuela
+    username: postgres
+    password: p64dm1n23

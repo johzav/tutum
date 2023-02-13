@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Grades</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    
+    <body>
+  		<div class="container">
+  		
+	        <h2 th:text="Calificaciones"></h2>        
+   			<hr/>
+			<a th:href="@{/}" class="btn btn-info">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				&nbsp;Home
+			</a>
+			
+			<a th:href="@{'/add_student_grade/idstudent/'+${idStudent}}" class="btn btn-primary">
+				<i class="fa fa-plus" aria-hidden="true"></i>
+				&nbsp;Nueva calificación
+			</a>
+			<br/><br/>		
+			
+	      	<div class="table-responsive" th:if="${ not#lists.isEmpty(grades)}">
+	          <table class="table  table-striped">
+	            <thead>            
+		            <tr>
+		              <th scope="col">Id</th>
+		              <th scope="col">Materia</th>
+		              <th scope="col">Calificacion</th>
+		              <th scope="col">Fecha</th>
+		              <th scope="col"></th>
+		            </tr>
+	            </thead>
+	            
+	            <tbody>
+		            <tr th:each="grade : ${grades}">
+		              <td scope="row" th:text="${grade.id_t_calificacion}"></td>
+		              <td th:text="${grade.materia}"> </td>
+		              <td th:text="${grade.calificacion}"></td>
+		              <td th:text="${#dates.format(grade.fecha_registro, 'dd/MM/yyyy')}"></td>
+		              <td style="display: inline-flex;"> 
+		              	<a class="btn btn-success"
+		              		th:href="@{'/edit_student_grade?idStudent='+${idStudent}+
+		              		'&idGrade='+${grade.id_t_calificacion}+
+		              		'&idMatter='+${grade.id_t_materia}+
+		              		'&grade='+${grade.calificacion}}"> 	              		
+		              		<i class="fa fa-pencil" aria-hidden="true"></i>
+		              		&nbsp;Editar
+		              	</a>
+		              	&nbsp;&nbsp;
+		              	<form method="post" th:action="@{'/delete_student_grade/'
+		              		+ ${grade.id_t_calificacion} + '/idStudent/'+ ${idStudent}}">		              	
+			              	<button class="btn btn-danger" type="submit">
+			              		<i class="fa fa-trash-o" aria-hidden="true"></i>
+			              		&nbsp;Eliminar
+			              	</button>	              	
+		              	</form>
+		              </td>
+		            </tr>
+		            
+	   	            <tr>
+		              <td scope="row">Promedio</td>
+		              <td></td>
+		              <td th:text="${average}"></td>
+		              <td></td>
+		              <td></td>
+		            </tr>
+		            
+	            </tbody>            
+	          </table>
+	        
+	        
+	        <a th:href="@{'/report/students/'+${idStudent}}" class="btn btn-success position-relative">
+				<i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+				&nbsp;Reporte
+			</a>        
+	        
+	        </div>
+        </div>
+    </body>
+</html>
